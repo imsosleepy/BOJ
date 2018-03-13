@@ -1,0 +1,128 @@
+import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	static int count;
+	static int N;
+	static int[][] arr;
+	static boolean[][] visited;
+
+	static int[] mx = { 0, 0, -1, 1 };
+	static int[] my = { 1, -1, 0, 0 };
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		N = sc.nextInt();
+	
+
+		arr = new int[N][N];
+		visited = new boolean[N][N];
+		ArrayList<Integer> danjiCount = new ArrayList<Integer>();
+		for (int i = 0; i < N; i++) {
+			String temp =sc.next();
+			for (int j = 0; j < N; j++) {
+				arr[i][j] = Character.getNumericValue(temp.charAt(j));
+				if (arr[i][j] == 0) {
+					visited[i][j] = true;
+				}
+			}
+		}
+
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				
+				if (arr[i][j] == 1 && visited[i][j] == false) {
+					danjiCount.add(bfs(i,j));					
+				}
+			}
+		}
+		System.out.println(danjiCount.size());
+		Collections.sort(danjiCount);
+		for(int i=0;i<danjiCount.size();i++)
+			System.out.println(danjiCount.get(i));
+
+	}
+
+	static int bfs(int x, int y) {
+		count = 1;
+		visited[x][y] = true;
+		Danji danji = new Danji(x, y, 0);
+		Queue<Danji> q = new LinkedList<Danji>();
+		q.offer(danji);
+		while (!q.isEmpty()) {
+			Danji temp = q.poll();
+			for (int i = 0; i < 4; i++) {
+				int nx = temp.getX() + mx[i];
+				int ny = temp.getY() + my[i];
+
+				if (nx >= N || ny >= N || nx < 0 || ny < 0)
+					continue;
+				else if (visited[nx][ny] == true)
+					continue;
+				else {
+					visited[nx][ny] = true;
+					Danji NewDanji = new Danji(nx, ny, temp.getCount());
+					q.offer(NewDanji);
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+//
+//	static boolean[][] init(boolean[][] arr) {
+//		for (int i = 0; i < N; i++) {
+//			for (int j = 0; j < N; j++) {
+//				arr[i][j] = false;
+//			}
+//		}
+//
+//		return arr;
+//
+//	}
+	
+	static class Danji {
+		private int x;
+		private int y;
+		private int count;
+
+		public int getX() {
+			return x;
+		}
+
+		public void setX(int x) {
+			this.x = x;
+		}
+
+		public int getY() {
+			return y;
+		}
+
+		public void setY(int y) {
+			this.y = y;
+		}
+
+		public int getCount() {
+			return count;
+		}
+
+		public void setCount(int count) {
+			this.count = count;
+		}
+
+		public Danji(int x, int y, int count) {
+			// TODO Auto-generated constructor stub
+			this.x = x;
+			this.y = y;
+			this.count = count;
+		}
+
+	}
+
+}
