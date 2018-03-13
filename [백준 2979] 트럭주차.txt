@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int A = sc.nextInt();
+		int B = sc.nextInt();
+		int C = sc.nextInt();
+		int[] arr = new int[100];
+		
+		int sa = sc.nextInt();
+		int ea = sc.nextInt();
+		
+		int sb = sc.nextInt();
+		int eb = sc.nextInt();
+		
+		int ssc = sc.nextInt();
+		int eec = sc.nextInt();
+		
+		for(int i=sa;i<ea;i++) {
+			arr[i]++;
+		}
+		for(int i=sb;i<eb;i++) {
+			arr[i]++;
+		}
+		for(int i=ssc;i<eec;i++) {
+			arr[i]++;
+		}
+		
+		int res =0;
+		for(int i=0;i<arr.length;i++) {
+			if(arr[i] == 1) res = res + A;
+			if(arr[i] == 2) res = res + 2*B;
+			if(arr[i] == 3) res = res + 3*C;
+		}
+		
+		System.out.println(res);
+		
+	}
+}

@@ -1,0 +1,30 @@
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		String a = sc.next();
+		int num = Integer.parseInt(a);
+		int res = 0;
+		if (num <= 0)
+			res = 0;
+		else {
+			for (int i = 1; i < num + 1; i++) {
+				a = Integer.toString(i);
+				if (i < 100)
+					res = i;
+				else {
+					int d1 = (int) a.charAt(0) - (int) a.charAt(1);
+					int d2 = (int) a.charAt(1) - (int) a.charAt(2);
+					if (d1 == d2)
+						res++;
+				}
+
+			}
+		}
+		System.out.println(res);
+
+	}
+
+}
