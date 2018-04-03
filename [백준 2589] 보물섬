@@ -1,0 +1,108 @@
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main{
+	boolean[][] visited ;
+	String[][] arr;
+	int max;
+	int N;
+	int M;
+	public Main() {
+		// TODO Auto-generated constructor stub
+		Scanner sc = new Scanner(System.in);
+		N= sc.nextInt();
+		M = sc.nextInt();
+		arr = new String[N][M];
+		visited = new boolean[N][M];
+		for(int i=0;i<N;i++){
+			String temp = sc.next();
+			for(int j=0;j<temp.length();j++){
+				arr[i][j] = Character.toString(temp.charAt(j));
+			}
+		}
+		
+		for(int i=0;i<N;i++){
+			for(int j=0;j<M;j++){
+				if(arr[i][j].equals("L")){
+					bfs(i,j);
+					for(boolean[] temp:visited)
+						Arrays.fill(temp,false);
+				}
+//				System.out.print(arr[i][j]);
+				
+			}
+//			System.out.println();
+		}
+		System.out.println(max);
+	}
+	
+	public static void main(String[] args) {
+		new Main();
+	}
+	
+	public void bfs(int x,int y){
+//		System.out.println("bfs start");
+//		System.out.println("(" +x+","+y+")");
+		visited[x][y] = true;
+		Point point = new Point();
+		point.setX(x);
+		point.setY(y);
+		point.setCount(0);
+		Queue<Point> q =new LinkedList<Point>();
+		q.offer(point);
+		while(!q.isEmpty()){
+			Point oldPoint = q.poll();
+			
+			int[] dx = {1,-1,0,0};
+			int[] dy = {0,0,1,-1};
+			
+			for(int i=0;i<4;i++){
+				int nx = oldPoint.x + dx[i];
+				int ny = oldPoint.y + dy[i];
+				
+				if(nx <0 || ny < 0) continue;
+				if(nx >= N || ny >= M) continue;
+				if(visited[nx][ny] == true) continue;
+				if(arr[nx][ny].equals("W")) continue;
+				
+				else{
+					visited[nx][ny] = true;
+//					System.out.println("(" +nx+","+ny+")");
+					Point newPoint = new Point();
+					newPoint.setX(nx);
+					newPoint.setY(ny);
+					newPoint.setCount(oldPoint.getCount()+1);
+					if(max<newPoint.getCount()) max = newPoint.getCount();
+					q.offer(newPoint);
+				}
+			}
+		}
+//		System.out.println("bfs out");
+	}
+	
+	public class Point{
+		int x;
+		int y;
+		int count;
+		public int getX() {
+			return x;
+		}
+		public void setX(int x) {
+			this.x = x;
+		}
+		public int getY() {
+			return y;
+		}
+		public void setY(int y) {
+			this.y = y;
+		}
+		public int getCount() {
+			return count;
+		}
+		public void setCount(int count) {
+			this.count = count;
+		}
+	}
+}
