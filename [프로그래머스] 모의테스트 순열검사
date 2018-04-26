@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+
+public class Main {
+
+	public boolean solution(int[] arr) {
+		boolean answer = true;
+		boolean[] in = new boolean[arr.length + 1];
+		for (int i = 0; i < arr.length; i++) {
+			if (arr[i] > arr.length) {
+				answer = false;
+				break;
+				
+			} 
+			if(in[arr[i]]) {
+				answer = false;
+				break;
+			}
+			else {
+				in[arr[i]] = true;
+			}
+		}
+
+		for(int i=1;i<in.length;i++) {
+			if(in[i] == false) {
+				answer = false;
+				break;
+			}
+		}
+		return answer;
+	}
+
+	public Main() {
+		int[] arr = {};
+		System.out.println(solution(arr));
+	}
+
+	public static void main(String[] args) {
+		new Main();
+	}
+
+}
