@@ -1,0 +1,38 @@
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+
+public class Main {
+
+	public Main(){
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		int[] arr = new int[10];
+		for(int i=0;i<s.length();i++) {
+			if(s.charAt(i)== '6' || s.charAt(i)== '9') {
+				arr[6]=arr[6]+1;
+			}
+			else{
+				arr[s.charAt(i)-48]=arr[s.charAt(i)-48]+1;
+			}
+		}
+		int max =0;
+		
+		if(arr[6]%2==1) {
+			arr[6] = (arr[6]/2)+1;
+		}else {
+			arr[6] = arr[6]/2;
+		}
+		
+		for(int i=0;i<10;i++) {
+			if(max<arr[i]) max = arr[i]; 
+		}
+		System.out.println(max);
+	}
+	
+	public static void main(String[] args) {
+	      new Main();
+	 
+	   }
+
+}
