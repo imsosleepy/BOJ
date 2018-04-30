@@ -1,0 +1,40 @@
+import java.util.Scanner;
+
+public class Main {
+
+	int solution(int[][] land) {
+		int answer = 0;
+		int[] result = new int[4];
+		int[] temp = new int[4];
+		// 이전수행에서 현재 수를 선택하려면 이전에 현재 위치의 수가 선택되지 않았어야 한다.
+		for (int i = 0; i < land.length; i++) {
+			result[0]= land[i][0]+Math.max(temp[1], Math.max(temp[2],temp[3]));
+			result[1]= land[i][1]+Math.max(temp[0], Math.max(temp[2],temp[3]));
+			result[2]= land[i][2]+Math.max(temp[1], Math.max(temp[0],temp[3]));
+			result[3]= land[i][3]+Math.max(temp[1], Math.max(temp[2],temp[0]));
+
+			for(int j=0;j<4;j++) {
+				temp[j]= result[j];		
+			}	
+		}
+		
+		for (int i = 0; i < 4; i++) {
+			if (answer < result[i]) {
+				answer = result[i];
+			}
+		}
+
+		return answer;
+	}
+
+	public Main() {
+		Scanner sc = new Scanner(System.in);
+		int[][] arr = { {1, 2, 3, 4}, {5,6,7,8}, {10, 11,1000, 12} };
+		System.out.println(solution(arr));
+	}
+
+	public static void main(String[] args) {
+		new Main();
+	}
+
+}
