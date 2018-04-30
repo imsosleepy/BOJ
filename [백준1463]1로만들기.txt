@@ -1,0 +1,47 @@
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.concurrent.LinkedBlockingDeque;
+
+public class Main {
+	static int[] arr;
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+				//Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+		        
+				Scanner sc = new Scanner(System.in);
+				int N = sc.nextInt();
+				arr = new int[N+1];
+				Arrays.fill(arr, 0);
+				
+				arr[0] = 0; arr[1] = 0;
+				
+				for(int i=2;i<N+1;i++){
+					arr[i] = arr[i-1]+1;
+					
+					if(i%2==0) arr[i] = Math.min(arr[i/2]+1, arr[i]);
+					
+					if(i%3==0) arr[i] = Math.min(arr[i/3]+1, arr[i]);
+						
+				}
+				System.out.println(arr[N]);
+				//System.out.println(makeOne(N));
+	}
+	/*
+	public static int makeOne(int N){
+		
+		if(N==1 || N==0) return 0;
+		
+		if(arr[N]>0) return arr[N];
+		
+		arr[N] = makeOne(N-1)+1;
+		
+		if(N%2==0) arr[N] = Math.min(makeOne(N/2)+1,arr[N]);
+		
+		if(N%3==0) arr[N] = Math.min(makeOne(N/3)+1,arr[N]);
+		
+		return arr[N];
+	}*/
+}

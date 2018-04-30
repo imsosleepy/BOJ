@@ -1,0 +1,36 @@
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+
+		Scanner sc = new Scanner(System.in);	
+		
+		String a = sc.next();
+		String b = sc.next();
+		
+		String aa="";
+		String bb="";
+		
+		for(int i=a.length()-1;i>=0;i--){
+			aa = aa + a.charAt(i);
+		}
+		
+		for(int i=b.length()-1;i>=0;i--){
+			bb = bb + b.charAt(i);
+		}
+		
+		int result = Math.max(Integer.parseInt(aa), Integer.parseInt(bb));
+		
+		System.out.println(result);
+		
+
+
+	}
+
+
+}

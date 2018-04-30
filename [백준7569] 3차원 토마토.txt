@@ -1,0 +1,139 @@
+import java.io.FileInputStream;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.concurrent.LinkedBlockingDeque;
+
+public class Main {
+	static int N;
+	static int M;
+	static int H;
+	static int[][][] adjArr;
+	static boolean[][][] visited;
+	static Queue<Point3D> qu;
+	static int maxCount=0;
+	static int tomato =0;
+	public static void main(String[] args) throws Exception {
+		Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+		// Scanner sc = new Scanner(System.in);
+		M = sc.nextInt();
+		N = sc.nextInt();
+		H = sc.nextInt();
+
+		int result = 0;
+		adjArr = new int[N][M][H];
+		visited = new boolean[N][M][H];
+		qu = new LinkedList<Point3D>();
+		for (int k = 0; k < H; k++) {
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < M; j++) {
+					int temp =  sc.nextInt();
+					adjArr[i][j][k] = temp;
+					if(temp == 0){
+						tomato++;
+					}
+					if(temp == 1){
+						qu.offer(new Point3D(i,j,k,0));
+					}
+				}
+			}
+		}
+		
+
+			int[] mn = { 1, -1, 0, 0, 0, 0 };
+			int[] mm = { 0, 0, 1, -1, 0, 0 };
+			int[] mh = { 0, 0, 0, 0, 1, -1 };
+			int nm = 0;
+			int nn = 0;
+			int nh = 0;
+			while (!qu.isEmpty()) {
+				Point3D nowPoint = qu.poll();
+				for (int i = 0; i < 6; i++) {
+					nn = nowPoint.n + mn[i];
+					nm = nowPoint.m + mm[i];
+					nh = nowPoint.h + mh[i];
+					
+					if (nm < 0 || nn < 0 || nh < 0 || nm >= M || nn >= N || nh >= H)
+						continue;
+					if (adjArr[nn][nm][nh] == -1)
+						continue;
+					if (adjArr[nn][nm][nh] == 1)
+						continue;
+					
+					if (adjArr[nn][nm][nh] == 0 && visited[nn][nm][nh] == false) {
+						visited[nn][nm][nh] = true;
+						Point3D newPoint = new Point3D(nn,nm,nh,nowPoint.cnt+1);
+						qu.offer(newPoint);
+						tomato--;
+					}
+					
+				}
+				result = nowPoint.cnt;
+			}
+			if(tomato==0) System.out.println(result);
+			else System.out.println("-1");
+//		for (int k = 0; k < H; k++) {
+//			for (int i = 0; i < N; i++) {
+//				for (int j = 0; j < M; j++) {
+//					if (adjArr[i][j][k] == 1)
+//						bfs(i, j, k);
+//					
+//					
+//				}
+//			}
+//		}
+		
+
+	}
+
+//	public static void bfs(int n, int m, int h) {
+//		visited[n][m][h] = true;
+//
+//		int[] mn = { 1, -1, 0, 0, 0, 0 };
+//		int[] mm = { 0, 0, 1, -1, 0, 0 };
+//		int[] mh = { 0, 0, 0, 0, 1, -1 };
+//		int nm = 0;
+//		int nn = 0;
+//		int nh = 0;
+//		Queue<Point3D> q = new LinkedList<Point3D>();
+//		Point3D point = new Point3D(n, m, h);
+//		q.offer(point);
+//		while (!q.isEmpty()) {
+//			Point3D nowPoint = q.poll();
+//			for (int i = 0; i < 6; i++) {
+//				nn = nowPoint.n + mn[i];
+//				nm = nowPoint.m + mm[i];
+//				nh = nowPoint.h + mh[i];
+//				
+//				if (nm < 0 || nn < 0 || nh < 0 || nm >= M || nn >= N || nh >= H)
+//					continue;
+//				if (adjArr[nn][nm][nh] == -1)
+//					continue;
+//				if (adjArr[nn][nm][nh] == 1)
+//					continue;
+//				
+//				if (adjArr[nn][nm][nh] == 0 && visited[nn][nm][nh] == false) {
+//					visited[nn][nm][nh] = true;
+//					Point3D newPoint = new Point3D(nn,nm,nh);
+//					q.offer(newPoint);
+//					
+//				}
+//
+//			}
+//		}
+//	}
+
+	public static class Point3D {
+		int m;
+		int n;
+		int h;
+		int cnt;
+		public Point3D(int n, int m, int h,int cnt) {
+			this.m = m;
+			this.n = n;
+			this.h = h;
+			this.cnt = cnt;
+		}
+	}
+
+}

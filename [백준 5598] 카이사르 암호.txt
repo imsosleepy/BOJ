@@ -1,0 +1,23 @@
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String a = sc.next();
+		// ´ë¹®ÀÚ A =65
+		String result ="";
+		for(int i=0;i<a.length();i++){
+			int temp=0;
+			if(a.charAt(i)<=67){
+				temp = a.charAt(i)+23;
+			}
+			else temp = (int)a.charAt(i)-3;
+			
+			result = result + (char)temp;
+		}
+		System.out.println(result);
+	}
+}

@@ -1,0 +1,67 @@
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	static int A;
+	static int B;
+	static int N;
+	static int M;
+	static boolean[] visited;
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		A = sc.nextInt();
+		B = sc.nextInt();
+		M = sc.nextInt();
+		N = sc.nextInt();
+		visited = new boolean[100002];
+
+		bfs();
+
+	}
+
+	static void bfs() {
+		visited[M] = true;
+		Queue<Dongkyu> q = new LinkedList<Dongkyu>();
+		Dongkyu d = new Dongkyu(M,0);
+		q.offer(d);
+		int[] dp = { 1, -1, A, B, -A, -B, A, B};
+		while (!q.isEmpty()) {
+			Dongkyu temp = q.poll();
+			if(temp.x==N){
+				System.out.println(temp.count);
+				return;
+			}
+			int nx = 0; 
+			for (int i = 0; i < 8; i++) {
+				if (i >= 6) {
+					nx = temp.x*dp[i];
+				}
+				else nx = temp.x+dp[i];
+				
+				if(nx<0 || nx>100000) continue;
+				if(visited[nx] == true) continue;
+				else{
+					visited[nx] = true;
+					int count = temp.count+1;
+					Dongkyu newD = new Dongkyu(nx,count);
+					q.offer(newD);
+				}
+			}
+			
+			
+		}
+	}
+	
+	public static class Dongkyu{
+		int x;
+		int count;
+		public Dongkyu(int x,int count) {
+			// TODO Auto-generated constructor stub
+			this.x = x;
+			this.count = count;
+		}	
+	}
+}

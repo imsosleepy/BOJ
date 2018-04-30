@@ -1,0 +1,27 @@
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+
+		Scanner sc = new Scanner(System.in);
+		String temp;
+		int count = 0;
+		for (int i = 0; i < 8; i++) {
+			temp = sc.nextLine();
+			for(int j =0;j<temp.length();j++){
+				if (temp.charAt(j) == 'F' && (i+j)%2==0)
+					count++;
+			}
+
+		}
+
+		System.out.println(count);
+
+	}
+
+}

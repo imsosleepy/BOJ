@@ -1,0 +1,53 @@
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Scanner;
+
+public class Main {
+	static int[] arr;
+	static boolean[] visited;
+	static int start;
+	static int count;
+	static ArrayList<Integer> list;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int N = sc.nextInt();
+		arr = new int[N+1];
+		visited = new boolean[N+1];
+		list = new ArrayList<Integer>();
+		
+		for(int i=1;i<=N;i++){
+			arr[i] = sc.nextInt();
+		}
+		
+		count = 0;
+		for(int i=1;i<=N;i++){
+			start = i;
+			dfs(i, 1);
+		}
+		System.out.println(list.size());
+		Collections.sort(list);
+		for(int i=0;i<list.size();i++){
+			System.out.println(list.get(i));
+		}
+	}
+	public static void dfs(int num,int count){
+		visited[num] = true;
+		list.add(num);
+		
+		if(arr[num] == start && visited[arr[num]]==true)
+			return;
+		if(arr[num] != start && visited[arr[num]]==true){
+			for(int i=0;i<count;i++){
+				visited[list.get(list.size()-1)] =false;
+				list.remove(list.size()-1);
+			}
+
+			return;
+		}
+		if(visited[arr[num]]==false){
+			dfs(arr[num],count+1);
+		}
+	}
+}

@@ -1,0 +1,25 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+				//Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+		        
+				Scanner sc = new Scanner(System.in);
+				
+				String input = sc.nextLine();
+				input = input.trim();
+				int count=0;
+				if(input.isEmpty()) count = 0;			
+				else{ 
+					String[] result = input.split(" ");
+					count = result.length;
+				
+				}
+				System.out.println(count);
+				
+	}
+
+}

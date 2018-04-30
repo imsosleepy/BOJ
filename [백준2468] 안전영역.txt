@@ -1,0 +1,92 @@
+import java.awt.Point;
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	static int[][] matrix;
+	static boolean[] visit;
+	static int N;
+	static int M;
+	static int MIN = 0;
+	static int cnt = 0;
+	static boolean started = false;
+
+	public static void main(String[] args) throws Exception {
+		Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+		// Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+
+		matrix = new int[N][N];
+		visit = new boolean[N * N];
+
+		for (int[] temp : matrix)
+			Arrays.fill(temp, 0);
+
+		Arrays.fill(visit, false);
+
+		for (int i = 0; i < N; i++) {
+			for (int j = 0; j < N; j++) {
+				int x = sc.nextInt();
+				matrix[i][j] = x;
+			}
+		}
+		int max = 0;
+		for (int i = 0; i <= 100; i++) {
+			int maxArea = 0;
+			for (int j = 0; j < N; j++) {
+				for (int k = 0; k < N; k++) {
+					if (matrix[j][k] <= i) {
+						visit[N * j + k] = true;
+					}
+				}
+			}
+			for (int j = 0; j < N * N; j++) {
+				if (visit[j] == false) {
+					bfs(j);
+					maxArea++;
+				}
+			}
+			//System.out.println(maxArea);
+			if (max < maxArea) {
+				max = maxArea;
+			}
+			Arrays.fill(visit, false);
+		}
+		System.out.println(max);
+	}
+
+	public static void bfs(int start) {
+		int[] wid = { 1, -1, 0, 0 };
+		int[] het = { 0, 0, -1, 1 };
+		
+		int nx = 0;
+		int ny = 0;
+
+		visit[start] = true;
+		Queue<Integer> q = new LinkedList<Integer>();
+
+		q.offer(start);
+
+		while (!q.isEmpty()) {
+			int now = q.poll();
+			int x = now / N;
+			int y = now % N;
+			for (int i = 0; i < 4; i++) {
+				
+				nx = x + wid[i];
+				ny = y + het[i];
+				if(nx<0 || ny<0 || nx>=N || ny>=N) continue;
+				int cur = nx*N+ny;
+				//System.out.println(cur);
+				if(visit[cur]==false){
+					visit[cur]=true;
+					q.offer(cur);
+				}
+				else continue;
+			}
+		}
+	}
+}

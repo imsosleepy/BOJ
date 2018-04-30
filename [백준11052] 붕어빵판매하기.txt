@@ -1,0 +1,33 @@
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+import java.util.concurrent.LinkedBlockingDeque;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+				//Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+		        
+				Scanner sc = new Scanner(System.in);
+				int N = sc.nextInt();
+				int[] arr = new int[N+1];
+				int[] p = new int[N+1];
+				
+				p[0] = 0;
+				for(int i=1;i<N+1;i++){
+					p[i] = sc.nextInt();
+				}
+				
+				for(int i=1;i<N+1;i++){
+					for(int j=1;j<i+1;j++){
+						int temp = arr[i-j]+p[j];				
+						if(temp > arr[i]) arr[i] = temp;
+					}
+				}
+				System.out.println(arr[N]);
+	}
+
+}

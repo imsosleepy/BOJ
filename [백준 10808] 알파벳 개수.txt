@@ -1,0 +1,24 @@
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+
+		Scanner sc = new Scanner(System.in);
+		String s = sc.next();
+		int[] alpha = new int[26];
+		
+		for(int i=0;i<s.length();i++){
+			alpha[(int)s.charAt(i)-97] = alpha[(int)s.charAt(i)-97]+1;
+		}
+		
+		for(int i =0;i<alpha.length;i++){
+			System.out.print(alpha[i]+" ");
+		}
+	}
+
+}

@@ -1,0 +1,29 @@
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+
+		Scanner sc = new Scanner(System.in);
+		int[] arr = new int[10];
+		String a = sc.next();
+		Arrays.fill(arr, 0);
+		// 49 = 1
+		for(int i=0;i<a.length();i++){
+			arr[(int)a.charAt(i)-48] = arr[(int)a.charAt(i)-48]+1;
+		}
+		if((arr[6]+arr[9])%2==0) arr[6] = (arr[6]+arr[9])/2;
+		if((arr[6]+arr[9])%2==1) arr[6] = ((arr[6]+arr[9])/2)+1;
+		arr[9] = 0;
+		int max = 0;
+		for(int i=0;i<arr.length;i++){
+			if(max < arr[i]) max = arr[i];
+		}
+		System.out.println(max);
+	
+	}
+}

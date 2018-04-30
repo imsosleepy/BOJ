@@ -1,0 +1,44 @@
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		// Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+
+		Scanner sc = new Scanner(System.in);	
+		
+		int[] alpha = new int[100];
+		String input = sc.next();
+//		// ascii alphabet 97 start
+		Arrays.fill(alpha, 0);
+		for(int i =0; i<input.length();i++){
+			if((int)input.charAt(i)>91) alpha[(int)input.charAt(i)-32] = alpha[(int)input.charAt(i)-32]+1;
+			else alpha[(int)input.charAt(i)] = alpha[(int)input.charAt(i)]+1;
+			
+		}
+		
+		int max = 0;
+		char answer = 0;
+		for(int i =0; i<alpha.length;i++){
+			//System.out.println(alpha[i]);
+			if(alpha[i]!=0 && alpha[i] == max){
+				answer = '?';
+			} 
+			if(max<alpha[i]){
+				max = alpha[i];
+				answer = (char)i;
+			}
+			
+		}
+		
+		System.out.println(answer);
+		
+
+
+	}
+
+
+}

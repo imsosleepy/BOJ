@@ -1,0 +1,37 @@
+import java.io.FileInputStream;
+import java.util.Scanner;
+
+// 다 더해주는 반복문에서도 mod를 나눠 줘야함
+// 계단수가 너무 많기 때문에
+
+public class Main {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+				//Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+		        
+				Scanner sc = new Scanner(System.in);
+				int N = sc.nextInt();
+				int[][] arr = new int[N+1][10];
+				
+				int mod = 1000000000;
+				
+				for(int i=1;i<=9;i++) arr[1][i] = 1;		
+				for(int i=2;i<N+1;i++){
+					for(int j=0;j<=9;j++){
+						if(j-1>=0) arr[i][j] += arr[i-1][j-1];
+						if(j+1<=9) arr[i][j] += arr[i-1][j+1];
+						arr[i][j] %= mod;
+					}
+				}
+				
+				long answer = 0;
+				for(int i=0;i<=9;i++)
+					answer += arr[N][i];
+				
+				answer %= mod;
+				
+				System.out.println(answer);
+	}
+
+}

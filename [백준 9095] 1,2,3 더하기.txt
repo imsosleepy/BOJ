@@ -1,0 +1,28 @@
+
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int S = sc.nextInt();
+		for (int j = 0; j < S; j++) {
+			int N = sc.nextInt();
+
+			int[] dp = new int[N + 1];
+
+			dp[1] = 1;
+			if (N >= 2)
+				dp[2] = 2;
+			if (N >= 3)
+				dp[3] = 4;
+			for (int i = 4; i < N + 1; i++) {
+				dp[i] = dp[i - 1] + dp[i - 2] + dp[i - 3];
+			}
+			System.out.println(dp[N]);
+		}
+	}
+}

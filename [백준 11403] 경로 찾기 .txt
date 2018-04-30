@@ -1,0 +1,88 @@
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	static int[][] adjArr;
+	static int[][] answer;
+	static boolean[] visited;
+	static int N;
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		adjArr = new int[N][N];
+		visited = new boolean[N];
+		answer = new int[N][N];
+		for(int i=0;i<N;i++){
+			for(int j=0;j<N;j++){
+				adjArr[i][j] = sc.nextInt();
+			}
+		}
+		
+		bfs(adjArr);
+		for(int i=0;i<N;i++){
+			for(int j=0;j<N;j++){
+				System.out.print(answer[i][j]+" ");
+			}
+			System.out.println();
+		}
+	}
+	public static void bfs(int[][] arr){
+		Queue<Integer> q = new LinkedList<Integer>();
+		
+		for(int i =0;i<N;i++){
+			q.offer(i);
+			Arrays.fill(visited,false);
+			while(!q.isEmpty()){
+				int temp = q.poll();
+				for(int j=0;j<N;j++){
+					if(visited[j]==false && arr[temp][j]==1){
+						visited[j] = true;
+						q.offer(j);
+						answer[i][j] =1;
+					}
+				}
+				
+			}
+		}
+	}
+}
+
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		int N = sc.nextInt();
+		int[][] adjArr = new int[N][N];
+		for(int i=0;i<N;i++){
+			for(int j=0;j<N;j++){
+				adjArr[i][j] = sc.nextInt();
+			}
+		}
+		
+		for(int i=0;i<N;i++){
+			for(int j=0;j<N;j++){
+				for(int k=0;k<N;k++){
+					if(adjArr[j][i] ==1 && adjArr[i][k] ==1)
+						adjArr[j][k] = 1; 
+				}
+			}
+		}
+		
+		for(int i=0;i<N;i++){
+			for(int j=0;j<N;j++){
+				System.out.print(adjArr[i][j]+" ");
+			}
+			System.out.println();
+		}
+		
+	}
+}

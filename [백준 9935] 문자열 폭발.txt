@@ -1,0 +1,48 @@
+
+import java.util.Scanner;
+import java.util.Stack;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		String s = sc.next();
+		String bomb = sc.next();
+		Stack<Character> stk = new Stack<Character>();
+		Stack<Character> temp = new Stack<Character>();
+		for (int i = 0; i < s.length(); i++) {
+			stk.add(s.charAt(i));
+			if (!temp.isEmpty())
+				temp.clear();
+
+			if (stk.peek() == bomb.charAt(bomb.length() - 1) && !stk.isEmpty()) {
+				for (int j = bomb.length() - 1; j >= 0; j--) {
+					if (!stk.isEmpty() && stk.peek() == bomb.charAt(j)) {
+						temp.add(stk.pop());
+						continue;
+					} else {
+						if (!temp.isEmpty()) {
+							int size = temp.size();
+							for (int k = 0; k < size; k++) {
+								stk.add(temp.pop());
+							}
+						}
+
+					}
+				}
+			}
+		}
+
+		if (stk.isEmpty())
+			System.out.println("FRULA");
+		else {
+			StringBuffer bf = new StringBuffer();
+			while (!stk.isEmpty()) {
+				bf.append(stk.pop());
+			}
+			bf.reverse();
+			System.out.println(bf.toString());
+		}
+	}
+}

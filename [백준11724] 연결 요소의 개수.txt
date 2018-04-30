@@ -1,0 +1,67 @@
+import java.awt.Point;
+import java.io.FileInputStream;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	static int[][] matrix;
+	static boolean[] visit;
+	static int N;
+	static int M;
+	static int cnt=0;
+	static boolean started = false;
+	public static void main(String[] args) throws Exception {
+		Scanner sc = new Scanner(new FileInputStream("sample.txt"));
+		//Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		M = sc.nextInt();
+		
+		matrix = new int[N+1][N+1];
+		visit = new boolean[N+1];
+		
+		for(int[] temp:matrix)
+			Arrays.fill(temp, 0);
+		
+		Arrays.fill(visit, false);
+		
+		for(int i=0;i<M;i++){
+			int x = sc.nextInt();
+			int y = sc.nextInt();
+			
+			matrix[x][y] = matrix[y][x] = 1;
+		}
+		
+		for(int i=1;i<=N;i++){
+			if(visit[i]==false){
+				dfs(i);
+				cnt++;
+			}
+		}
+		System.out.println(cnt);
+	}
+	public static void bfs(int start){
+		visit[start] = true;
+		Queue<Integer> q = new LinkedList<Integer>();
+		q.offer(start);
+		while(!q.isEmpty()){
+			start = q.poll();
+			for(int i=1;i<=N;i++){
+				if(visit[i]==false && matrix[start][i]==1){
+					q.offer(i);
+					visit[i] = true;
+				}
+			}
+		}
+		
+	}
+	public static void dfs(int start){
+		visit[start] = true;
+		for(int i=1;i<=N;i++){
+			if(visit[i]==false && matrix[start][i]==1){
+				dfs(i);
+			}
+		}
+	}
+}
