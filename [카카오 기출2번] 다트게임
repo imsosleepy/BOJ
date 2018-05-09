@@ -1,0 +1,53 @@
+import java.util.Stack;
+
+public class Main {
+
+   public static int calGrade(String exp) {
+      char[] exps = exp.toCharArray();
+      Stack<Integer> stack = new Stack<Integer>();
+      for (char e : exps) {
+         switch (e) {
+         case '*':
+            int popResult = stack.pop() * 2;
+            if (stack.size() != 0)
+               stack.push(stack.pop() * 2);
+            stack.push(popResult);
+            break;
+         case '#':
+            stack.push(stack.pop() * -1);
+            break;
+         case 'S':
+            stack.push((int) Math.pow(stack.pop(), 1));
+            break;
+         case 'D':
+            stack.push((int) Math.pow(stack.pop(), 2));
+            break;
+         case 'T':
+            stack.push((int) Math.pow(stack.pop(), 3));
+            break;
+         case '0':
+            if (stack.peek() == 1) {
+               stack.pop();
+               stack.push(10);
+            } else
+               stack.push(0);
+            break;
+         default:
+            String s = String.valueOf(e);
+            stack.push(Integer.parseInt(s));
+            break;
+         }
+      }
+
+      int result = 0;
+      while (!stack.isEmpty())
+         result += stack.pop();
+      return result;
+   }
+
+   public static void main(String[] args) {
+      String input = "1S2D*3T";
+      System.out.println(calGrade(input));
+   }
+
+}
