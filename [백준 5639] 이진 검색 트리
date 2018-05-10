@@ -1,0 +1,64 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Main {
+	
+   class Tree{
+      int left =0;
+      int right = 0;
+   }
+   
+   Tree[] tree = new Tree[100001];
+   
+   void postOrder(int node){
+	   
+      if(tree[node].left!=0){
+         postOrder(tree[node].left);
+      }
+      
+      if(tree[node].right!=0){
+         postOrder(tree[node].right);
+      }
+      System.out.println(node);
+   }
+   
+   public Main(){
+      Scanner sc = new Scanner(System.in);
+      int root = sc.nextInt();
+      tree[root] = new Tree();
+      int value;
+      while(sc.hasNext()){
+//    	 if(sc.nextInt()==-1) break;
+         value = sc.nextInt();
+         int node = root;
+         tree[value] = new Tree();
+         while(true){
+               if (node < value) {
+                   if (tree[node].right != 0) {
+                       node = tree[node].right;
+                   }
+                   else {
+                       tree[node].right = value;
+                       break;
+                   }
+               }
+               else {
+                   if (tree[node].left != 0) {
+                       node = tree[node].left;
+                   }
+                   else {
+                       tree[node].left = value;
+                       break;
+                   }
+               }
+              
+         }
+      }
+      postOrder(root);
+   }
+
+   public static void main(String[] args) {
+      new Main();
+
+   }
+}
