@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Test {
+
+   public Test() {
+      System.out.println(expressions(15));
+
+   }
+
+   public int expressions(int num) {
+      int answer = 0;
+      for (int i = 1; i < num + 1; i++) {
+         int sum = 0;
+         int count = i;
+         while (true) {
+            sum = sum+count;
+            if (sum == num) {
+               answer++;
+               sum = 0;
+               break;
+            } else if (sum > num) {
+               sum = 0;
+               break;
+            }
+            count++;
+         }
+      }
+
+      return answer;
+   }
+
+   public static void main(String[] args) {
+      new Test();
+   }
+}
