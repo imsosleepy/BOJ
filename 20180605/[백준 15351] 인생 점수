@@ -1,0 +1,30 @@
+import java.awt.Point;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	
+	public Main() {
+		Scanner sc = new Scanner(System.in);
+		// A 65 전부 -64를 해줘서 점수 표기
+		int N = Integer.parseInt(sc.nextLine());
+		
+		for(int i=0;i<N;i++) {
+			String s = sc.nextLine();
+			int score=0;
+			for(int j=0;j<s.length();j++) {
+				if(Character.toString(s.charAt(j)).equals(" ")) continue;
+				score = score + (int)s.charAt(j)-64;
+			}
+			
+			if(score == 100) System.out.println("PERFECT LIFE");
+			else System.out.println(score);
+		}
+		
+	}
+	 
+	public static void main(String[] args) {
+		new Main();
+	}
+}
