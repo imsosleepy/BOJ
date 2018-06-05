@@ -1,0 +1,90 @@
+import java.awt.Point;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Scanner;
+
+public class Main {
+	int N;
+	int M;
+	String[][] arr;
+	boolean[][] visited;
+	
+	int wolfCount;
+	int lambCount;
+	
+	public Main() {
+		Scanner sc = new Scanner(System.in);
+		N = sc.nextInt();
+		M = sc.nextInt();
+		arr = new String[N][M];
+		visited = new boolean[N][M];
+		
+		for(int i=0;i<N;i++) {
+			String a = sc.next();
+			String[] temp = a.split("");
+			for(int j =0;j<temp.length;j++) {
+				if(temp[j].equals("#")) visited[i][j] = true;
+				arr[i][j] = temp[j];
+			}
+		}
+		
+		for(int i=0;i<N;i++) {
+			for(int j=0;j<M;j++) {
+				if(visited[i][j] == false)
+					bfs(i,j);
+			}
+		}
+		
+		System.out.println(lambCount + " " + wolfCount);
+		
+
+	}
+	 
+	void bfs(int x,int y) {
+		visited[x][y] = true;
+		Queue<Point> q = new LinkedList<Point>();
+		Point p = new Point(x,y);
+		q.offer(p);
+		int lamb=0;
+		int wolf=0;
+		
+		if(arr[x][y].equals("v")) wolf++;
+		if(arr[x][y].equals("o")) lamb++;
+		
+		
+		while(!q.isEmpty()) {
+			Point temp = q.poll();
+			int[] mx = {1,-1,0,0};
+			int[] my = {0,0,1,-1};
+			
+			for(int i=0;i<4;i++) {
+				int nx = temp.x + mx[i];
+				int ny = temp.y + my[i];
+				
+				if(nx<0 || nx>N-1 || ny<0 || ny>M-1) continue;
+				if(visited[nx][ny]==true) continue;
+				else {
+					Point newPoint = new Point(nx,ny);
+					visited[nx][ny] = true;
+					q.offer(newPoint);
+					if(arr[nx][ny].equals("v")) wolf++;
+					if(arr[nx][ny].equals("o")) lamb++;
+				}
+			}
+			
+		}
+		
+		if(wolf>=lamb) {
+			lamb =0;
+			wolfCount = wolfCount+wolf;
+		}else {
+			wolf =0;
+			lambCount = lambCount+lamb;
+		}
+	}
+	
+	
+	public static void main(String[] args) {
+		new Main();
+	}
+}
