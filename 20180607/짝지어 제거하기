@@ -1,0 +1,34 @@
+import java.util.Stack;
+
+public class Main {
+	
+	public int solution(String s)
+    {
+        int answer = 0;
+        Stack<Character> stack = new Stack<Character>();
+        stack.push(s.charAt(0));
+        char temp=0;
+        for(int i=1;i<s.length();i++) {
+        	if(stack.size()!=0) {
+        		temp = stack.peek();	
+        	}
+        	if(temp == s.charAt(i)) {
+        		stack.pop();
+        		temp=0;
+        	}else{
+        		stack.push(s.charAt(i));
+        	}
+        }
+        if(stack.size()==0) answer = 1;
+        else answer = 0;
+        return answer;
+    }
+	
+	public Main() {
+		System.out.println(solution("cdcd"));
+	}
+
+	public static void main(String[] args) {
+		new Main();
+	}
+}
