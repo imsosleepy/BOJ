@@ -1,0 +1,21 @@
+public class Main {
+	public Main() {
+		int[] arr = new int[10001];
+		for(int i=1;i<10001;i++) {
+			String s = Integer.toString(i);
+			int num = 0;
+			num = num + i;
+			for(int j=0;j<s.length();j++) {
+				num = num+Character.getNumericValue(s.charAt(j));
+			}
+			if(num<10000) arr[num]=arr[num]+1;
+		}
+		for(int i=1;i<10000;i++) {
+			if(arr[i]==0) System.out.println(i);
+		}
+	}
+
+	public static void main(String[] args) {
+		new Main();
+	}
+}
